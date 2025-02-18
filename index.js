@@ -391,7 +391,7 @@ async function run() {
         const meal = await mealCollection.findOne(filter);
         const ratings = meal.ratings;
     
-        const averageRating = ratings.reduce((sum, rating) => sum + rating.rating, 0) / ratings.length;
+        const averageRating = (ratings.reduce((sum, rating) => sum + rating.rating, 0) / ratings.length).toFixed(2);
     
        
         const updateAvgRating = await mealCollection.updateOne(filter, {
