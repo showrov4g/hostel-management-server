@@ -480,7 +480,8 @@ async function run() {
     // upcoming meal data gating
     app.get("/upcoming-meal", async (req, res) => {
       const upcomingMeal = req.body;
-      const result = await upcomingMealCollection.find(upcomingMeal).toArray();
+      const limit = parseInt(req.query.limit) || 0;
+      const result = await upcomingMealCollection.find(upcomingMeal).limit(limit).toArray();
       res.send(result);
     });
     // get upcoming meals single data
