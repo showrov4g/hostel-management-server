@@ -491,6 +491,29 @@ async function run() {
       const result = await upcomingMealCollection.findOne(query);
       res.send(result);
     });
+    // get total number of users and how many user request for meals 
+    app.get("/dashboard/stats", verifyToken, verifyAdmin, async (req, res) => {
+      try {
+        const totalUsers = await userCollection.countDocuments();
+        const totalMeals = await mealCollection.countDocuments();
+        const totalRequests = await requestCollection.countDocuments();
+        const totalReviews = await reviewsCollection.countDocuments();
+    
+        res.send({
+          totalUsers,
+          totalMeals,
+          totalRequests,
+          totalReviews,
+        });
+      } catch (error) {
+        res.status(500).send({ message: "Error fetching stats", error });
+      }
+    });
+    
+    
+
+
+
 
     // apis end
   } finally {
